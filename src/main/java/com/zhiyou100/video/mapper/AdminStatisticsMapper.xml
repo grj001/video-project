@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyou100.video.mapper.AdminStatisticsMapper" >
+
+<select id="findStatistics" resultType="com.zhiyou100.video.model.Statistics">
+select course_name courseName,ROUND(AVG(video_play_times)) avgTime 
+from video,course c where course_id = c.id GROUP BY course_id
+</select>
+</mapper>

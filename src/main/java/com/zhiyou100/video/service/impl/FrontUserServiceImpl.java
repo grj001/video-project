@@ -32,6 +32,8 @@ public class FrontUserServiceImpl implements FrontUserService {
 		if(!li.isEmpty()){
 			return false;
 		}
+		
+		
 		u.setInsertTime(new Date(System.currentTimeMillis()));
 		um.insertSelective(u);
 		return true;
@@ -63,6 +65,7 @@ public class FrontUserServiceImpl implements FrontUserService {
 		UserExample ue = new UserExample();
 		ue.createCriteria().andEmailEqualTo(email);
 		List<User> li = um.selectByExample(ue);
+		
 		return !li.isEmpty();
 	}
 

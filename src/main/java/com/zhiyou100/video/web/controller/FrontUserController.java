@@ -66,11 +66,10 @@ public class FrontUserController {
 		FrontResult result = new FrontResult();
 		u.setPassword(MD5Utils.getMD5(u.getPassword()));
 		User user = fus.logintUser(u);
+		result.setSuccess(user != null);
 		if(user == null){
-			result.setSuccess(false);
 			result.setMessage("用户名密码不正确");
 		}else{
-			result.setSuccess(true);
 			session.setAttribute("_front_user", user);
 		}
 		return result;
@@ -159,10 +158,15 @@ public class FrontUserController {
 	*/ 
 	@RequestMapping(value="/avatar.action",method=RequestMethod.POST)
 	public String userAvatarUpdate(MultipartFile image_file,HttpSession session) throws Exception {
+		//从Session域中取出_front_user
 		User u = (User)session.getAttribute("_front_user");
+		//拼接/pic/加新的文件名,并放入对象中
 		u.setHeadUrl(PictureUtil.getPictureUrl(image_file.getOriginalFilename()));
+		//将更新是将放入user对象中
 		u.setUpdateTime(new Date());
+		//文件的上传
 		image_file.transferTo(PictureUtil.getPictureFile(u.getHeadUrl()));
+		//更新user,向数据库更改文件名
 		fus.updateUser(u);
 		resetSessionAndModelUser(session, null);
 		return "redirect:/front/user/index.action";

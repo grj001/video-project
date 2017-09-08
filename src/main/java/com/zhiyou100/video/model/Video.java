@@ -2,6 +2,8 @@ package com.zhiyou100.video.model;
 
 import java.util.Date;
 
+import org.junit.Test;
+
 public class Video {
     private Integer id;
 
@@ -34,11 +36,13 @@ public class Video {
     
     private Course course;
     
+
+    
     
     public String getVideoLengthStr() {
     	Integer hour = this.getVideoLength() / 3600;
     	Integer min =  this.getVideoLength() % 3600 / 60;
-    	Integer sec = this.getVideoLength() % 3600 % 60;
+    	Integer sec = this.getVideoLength() % 60;
 		return String.format("%02d : %02d : %02d", hour,min,sec);
 	}
 

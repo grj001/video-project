@@ -61,6 +61,7 @@ public class FrontHomeController {
 	public FrontResult sendMail(String email) throws Exception{
 		FrontResult fr = new FrontResult();
 		Boolean orExist = fus.checkMail(email);
+		
 		fr.setSuccess(orExist);
 		if(!orExist){
 			fr.setMessage("邮箱不存在,请核对");
